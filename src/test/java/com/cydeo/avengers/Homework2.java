@@ -45,15 +45,26 @@ public class Homework2 extends HrTestBase {
         List<String> allJobIDs = response.path("items.job_id");
         System.out.println(allJobIDs);
 
-        for (String eachJobID : allJobIDs) {
-            System.out.println(eachJobID);
-            Assertions.assertTrue(eachJobID.startsWith("SA"));
+        for (String eachJOBID : allJobIDs) {
+            System.out.println(eachJOBID);
+            Assertions.assertTrue(eachJOBID.startsWith("SA"));
         }
 
 
-
         //     * - And all department_ids are 80
+        List<Integer> allIDS = response.path("items.department_id");
+
+        for (Integer eachID : allIDS) {
+            System.out.println(eachID);
+            Assertions.assertEquals(80,eachID);
+        }
+
         //     * - Count is 25
+        int count = response.path("count");
+        System.out.println(count);
+
+        Assertions.assertEquals(25,count);
+
 
     }
 }
