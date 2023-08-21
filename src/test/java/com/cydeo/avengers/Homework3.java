@@ -114,17 +114,44 @@ public class Homework3 extends ZipCodeTestBase {
      * Given Accept application/json
      * And path state is va
      * And path city is fairfax
-     * When I send a GET request to /us endpoint Then status code must be 200
+     * When I send a GET request to /us endpoint
+     * Then status code must be 200
      * And content type must be application/json
      * And payload should contains following information
      * country abbreviation is US
      * country United States
      * place name Fairfax
-     * each places must contains fairfax as a value each post code must start with 22
+     * each places must contains fairfax as a value
+     * each post code must start with 22
      */
 
     @Test
     public  void task3() {
+
+        JsonPath jp = given().log().uri()
+                .accept(ContentType.JSON)
+                .pathParam("state", "va")
+                .pathParam("city", "fairfax").
+                when().get("/us/{state}/{city}").
+                then().statusCode(200)
+                .contentType(ContentType.JSON)
+                .extract().jsonPath();
+
+
+        //     * country abbreviation is US
+            Assertions.assertEquals("US",jp.get("'country abbreviation'"));
+
+        //     * country United States
+            Assertions.assertEquals("United States",jp.getString("country"));
+
+        //     * place name Fairfax
+        Assertions.assertEquals("Fairfax",jp.getString("'place name'"));
+
+
+        //     * each places must contains fairfax as a value
+
+        //     * each post code must start with 22
+
 
     }
 }
