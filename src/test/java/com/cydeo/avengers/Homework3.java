@@ -31,8 +31,8 @@ public class Homework3 extends ZipCodeTestBase {
 
         given().log().uri()
                 .accept(ContentType.JSON)
-                .pathParam("zipcode",22031).
-        when().get("/us/{zipcode}").prettyPeek().
+                .pathParam("zipCode",22031).
+        when().get("/us/{zipCode}").prettyPeek().
         then()
                 .statusCode(200)
                 .contentType(ContentType.JSON)
@@ -43,6 +43,20 @@ public class Homework3 extends ZipCodeTestBase {
                 .body("'country abbreviation'",is("US"))
                 .body("places[0].'place name'",is("Fairfax"))
                 .body("places[0].state",is("Virginia"));
+
+
+    }
+
+    @Test
+    public void task1JsonPath() {
+
+        given().log().uri()
+                .accept(ContentType.JSON)
+                .pathParam("zipCode",22031).
+                when().get("/us/{zipCode}").prettyPeek().
+                then()
+                .statusCode(200)
+                .contentType(ContentType.JSON);
 
 
     }
