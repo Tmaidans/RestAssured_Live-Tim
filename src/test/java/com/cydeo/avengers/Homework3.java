@@ -2,7 +2,9 @@ package com.cydeo.avengers;
 
 import com.cydeo.utility.ZipCodeTestBase;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
@@ -50,13 +52,33 @@ public class Homework3 extends ZipCodeTestBase {
     @Test
     public void task1JsonPath() {
 
-        given().log().uri()
+        JsonPath jp = given().log().uri()
                 .accept(ContentType.JSON)
-                .pathParam("zipCode",22031).
-                when().get("/us/{zipCode}").prettyPeek().
+                .pathParam("zipCode", 22031).
+                when().get("/us/{zipCode}").
                 then()
                 .statusCode(200)
-                .contentType(ContentType.JSON);
+                .contentType(ContentType.JSON)
+                .header("Server", "cloudflare")
+                .header("Report-To", notNullValue())
+                .extract().jsonPath();
+
+        // GET JSON PATH TO START ASSERTIONS
+
+
+        //     * post code is 22031
+        Assertions.assertEquals("22031",jp.getString("'post code'"));
+
+        //     * country is United States
+        Assertions.assertEquals("United States",jp.getString("country"));
+
+        //     * country abbreviation is US
+        Assertions.assertEquals("US",jp.getString("'country abbreviation'"));
+
+        //     * place name is Fairfax
+
+
+        //     * state is Virginia
 
 
     }
