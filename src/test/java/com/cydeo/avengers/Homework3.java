@@ -84,4 +84,16 @@ public class Homework3 extends ZipCodeTestBase {
 
 
     }
+
+    /**
+     * TASK 2
+     * Given Accept application/json
+     * And path zipcode is 50000
+     * When I send a GET request to /us endpoint Then status code must be 404
+     * And content type must be application/json
+     */
+    @Test
+    public  void task2() {
+
+    }
 }
