@@ -89,11 +89,42 @@ public class Homework3 extends ZipCodeTestBase {
      * TASK 2
      * Given Accept application/json
      * And path zipcode is 50000
-     * When I send a GET request to /us endpoint Then status code must be 404
+     * When I send a GET request to /us endpoint
+     * Then status code must be 404
      * And content type must be application/json
      */
     @Test
     public  void task2() {
+
+        given().log().uri()
+                .accept(ContentType.JSON)
+                .pathParam("zipCode", 50000).
+                when().get("/us/{zipCode}").
+                then()
+                .statusCode(404)
+                .contentType(ContentType.JSON);
+
+        // Which kind of test case we created into here
+        // negative test
+
+
+    }
+
+    /**
+     * Given Accept application/json
+     * And path state is va
+     * And path city is fairfax
+     * When I send a GET request to /us endpoint Then status code must be 200
+     * And content type must be application/json
+     * And payload should contains following information
+     * country abbreviation is US
+     * country United States
+     * place name Fairfax
+     * each places must contains fairfax as a value each post code must start with 22
+     */
+
+    @Test
+    public  void task3() {
 
     }
 }
