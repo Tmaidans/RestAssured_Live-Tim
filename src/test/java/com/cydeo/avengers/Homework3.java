@@ -1,6 +1,7 @@
 package com.cydeo.avengers;
 
 import com.cydeo.utility.ZipCodeTestBase;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import org.hamcrest.Matchers;
@@ -76,9 +77,10 @@ public class Homework3 extends ZipCodeTestBase {
         Assertions.assertEquals("US",jp.getString("'country abbreviation'"));
 
         //     * place name is Fairfax
-
+        Assertions.assertEquals("Fairfax",jp.getString("places[0].'place name'"));
 
         //     * state is Virginia
+        Assertions.assertEquals("Virginia",jp.getString("places[0].state"));
 
 
     }
