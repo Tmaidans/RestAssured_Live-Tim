@@ -7,6 +7,9 @@ import io.restassured.path.json.JsonPath;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
@@ -139,7 +142,7 @@ public class Homework3 extends ZipCodeTestBase {
 
 
         //     * country abbreviation is US
-            Assertions.assertEquals("US",jp.get("'country abbreviation'"));
+            Assertions.assertEquals("US",jp.getString("'country abbreviation'"));
 
         //     * country United States
             Assertions.assertEquals("United States",jp.getString("country"));
@@ -148,10 +151,23 @@ public class Homework3 extends ZipCodeTestBase {
         Assertions.assertEquals("Fairfax",jp.getString("'place name'"));
 
 
-        //     * each places must contains fairfax as a value
+        //     * each places must contains Fairfax as a value
+        List<String> allPlaces = jp.getList("places.'place name'");
+        System.out.println(allPlaces);
+
+        // how to do verification
+        for (String eachPlace : allPlaces) {
+            Assertions.assertTrue(eachPlace.contains("Fairfax"));
+        }
 
         //     * each post code must start with 22
+        List<String> allPostCodes = jp.getList("places.'post code'");
+        System.out.println(allPostCodes);
 
+        // how to do verification
+        for (String eachPostCode : allPostCodes) {
+            Assertions.assertTrue(eachPostCode.startsWith("22"));
+        }
 
     }
 }
